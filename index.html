@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        Masoud
+    </title>
+    <link rel="stylesheet" href="./public/stylesheets/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="./public//stylesheets/Header-Dark.css">
+    <link rel="stylesheet" href="./public//stylesheets/Projects-Horizontal.css">
+    <link rel="stylesheet" href="./public//stylesheets/Footer-Dark.css">
+    <link rel="stylesheet" href="./public//stylesheets/Highlight-Clean.css">
+    <link rel="stylesheet" href="./public//stylesheets/Social-Icons.css">
+    
+    <!-- <script src="./public//scripts/githubApi.js"></script> -->
+    <script type="text/javascript">
+        window.onload = function fetctchData() {
+            try {
+                fetch("https://api.github.com/users/MasoudMusa/repos")
+                    .then(response => response.json())
+                    .then(git_data => {
+                        createDynamicDiv(git_data);
+                    });
+            } catch (error) {
+                console.log(error);
+
+            }
+        }
+
+        function createDynamicDiv(git_data) {
+            console.log(git_data);
+
+            // get the projects div so that we can work with it.
+            var row_projects = document.getElementById('projects');
+
+            // fetch our data from the gitub api and render it out as html.
+            git_data.forEach(element => {
+                // check if thre is a descrioption on the repo
+                if (element.description) {
+                    element.description = element.description;
+                } else {
+                    element.description = 'There is no description for this projet on github. Will work on it soon 😉';
+                }
+
+                const html = `<div class="col-sm-6 item">  <div class="row"><div id="avatar" class="col-md-12 col-lg-5"><a href="${element.clone_url.replace('.git', '')}"><img class="img-fluid" src="${element.owner.avatar_url}"></a> </div><div class="col"><h3 id="name" class="name">${element.name}</h3><p id="description" class="description">${element.description}</p></div></div></div>`;
+
+                // if there are are nodes in the div create another div with class of row project
+                if (row_projects.hasChildNodes()) {
+                    var project = document.createElement('div');
+                    project.className = "row project";
+                    row_projects.appendChild(project);
+                    project.innerHTML = html
+                }
+                // pretyy obvious what is happengong here.
+                else {
+                    row_projects.innerHTML = html;
+                }
+
+            });
+        };
+
+
+    </script>
+</head>
+
+<body>
+
+    <div>
+        <div class="header-dark">
+            <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+                <div class="container"><a class="navbar-brand" href="/">Masoud</a><button class="navbar-toggler"
+                        data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle
+                            navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navcol-1">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="/about">About Me</a></li>
+                        </ul>
+                        <form class="form-inline mr-auto" target="_self">
+                            <div class="form-group"><label for="search-field"></label><input
+                                    class="form-control search-field" type="text" name="search" placeholder="Search"
+                                    id="search-field" disabled>
+                            </div>
+                        </form><span class="navbar-text"></span><a class="btn btn-light action-button" role="button"
+                            href="https://github.com/MasoudMusa?tab=respositories">My
+                            Projects</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="container hero">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <h1 class="text-center">Hello thanks for visiting my portfolio</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="projects-horizontal">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Projects </h2>
+                <p class="text-center">These are someof myprojects that i have been teaching myself. I love learning new
+                    technnologies. I encourage everyone who has a passion for code to follow it. Enjoy!</p>
+            </div>
+            <!-- show projects in this div  -->
+            <div id="projects" class="projects">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Highlight -->
+    <div class="highlight-clean">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Wanna know me?</h2>
+                <p class="text-center"><br>I am a young developer. I have tought myself serveral technologies These
+                    stuff
+                    on my page are some of my projects. I love code and hope you do too. Follow me on my social website.
+                    Have a nice time.The dislike button does'nt work by
+                    the way. ooops! 😉<br><br></p>
+            </div>
+            <div class="buttons"><a class="btn btn-primary" role="button" id="like">Like</a><button
+                    class="btn btn-danger text-center text-dark" type="button" disabled="disabled">Dislike</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social icons -->
+    <div class="social-icons"><a href="#"><i class="fa fa-facebook" data-bs-hover-animate="wobble"></i></a><a
+            href="#"><i class="fa fa-twitter" data-bs-hover-animate="wobble"></i></a><a
+            href="https://wa.me/<070098575865> "><i class="fa fa-whatsapp" data-bs-hover-animate="wobble"></i></a><a
+            href="https://github.com/MasoudMusa?tab=respositories"><i class="fa fa-github"
+                data-bs-hover-animate="wobble"></i></a></div>
+
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="#">Development</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>Masoud</h3>
+                        <p>I am a young developer. I have tought myself serveral technologies These stuff on my page are
+                            some of my projects. I love code and hope you do too. Follow me on my social website. Have a
+                            nice time.</p>
+                    </div>
+                </div>
+                <p class="copyright">Masoud© 2017</p>
+            </div>
+        </footer>
+    </div>
+    <script src="./public//scripts/jquery.min.js"></script>
+    <script src="./public//scripts/bs-animation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="./public//scripts/main.js"></script>
+
+</body>
